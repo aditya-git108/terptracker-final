@@ -52,3 +52,10 @@ compose-db:
 
 install_requirements: requirements.txt
 	pip3 install -r requirements.txt
+
+build:
+	# Build package
+	python3 -m build
+
+	# Install locally for testing
+	pip3 install .
