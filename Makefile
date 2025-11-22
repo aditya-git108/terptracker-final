@@ -22,17 +22,17 @@ app-local:
 	docker compose up -d --remove-orphans dynamodb-local dynamodb
 	export DB_MODE=DEV
 	make
-	hypercorn app:app --reload -b 127.0.0.1:5000
+	gunicorn app:app -w 2 --threads 4 -b 0.0.0.0:5000
 
 terptracker-local:
 	export FLASK_MODE=PROD && \
 	make terpsearch && \
-	DB_MODE=DEV gunicorn app:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:5000
+	DB_MODE=DEV gunicorn app:app -w 2 --threads 4 -b 0.0.0.0:5000
 
 terptracker-prod:
 	export FLASK_MODE=PROD && \
 	make terptracker && \
-	DB_MODE=PROD gunicorn app:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:5000
+	DB_MODE=PROD gunicorn app:app -w 2 --threads 4 -b 0.0.0.0:5000
 
 push-to-ecr:
 	aws ecr get-login-password --region us-east-1 | \
