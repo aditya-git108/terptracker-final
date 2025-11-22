@@ -7,7 +7,6 @@ from flask_session import Session
 from terptracker.dynamodb.TerpTrackerDb import TerpTrackerDb
 from terptracker.dynamodb.dynamodb_helpers import (table_exists, DynamoDbConstants, get_dynamodb_resource,
                                                   get_dynamodb_client, get_dynamodb_table)
-import redis
 
 # db = SQLAlchemy()
 # DB_NAME = "database.db"
