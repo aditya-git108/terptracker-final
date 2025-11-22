@@ -38,6 +38,6 @@ services:
       - DYNAMODB_URL=http://dynamodb-local:8000
       - AWS_REGION=us-east-1
       - PYTHONUNBUFFERED=1
-      - AWS_ACCESS_KEY_ID=dummy
-      - AWS_SECRET_ACCESS_KEY=dummy
-    command: sh -c "make terptracker-dev"
+#      - AWS_ACCESS_KEY_ID=dummy
+#      - AWS_SECRET_ACCESS_KEY=dummy
+    command: sh -c "make terptracker-prod"
