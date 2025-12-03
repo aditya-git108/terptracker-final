@@ -8,16 +8,16 @@ from botocore.exceptions import ClientError
 
 class TerpTrackerDb:
     """
-    A class used to manage all Bluesky-related data as NoSQL tables in DynamoDB for the TerpSearch application.
+    A class used to manage all user expense data as NoSQL tables in DynamoDB for the TerpTracker application.
 
-    This class encapsulates operations for creating tables, formatting items, and writing Bluesky post data
-    into the DynamoDB instance for the TerpSearch application. It uses helper classes and utilities for interacting with
+    This class encapsulates operations for creating tables, formatting items, and writing user expense data
+    into the DynamoDB instance for the TerpTracker application. It uses helper classes and utilities for interacting with
     DynamoDB in a structured way.
     """
 
     def __init__(self, db_mode: str):
         """
-        Initializes a TerpSearchDb instance by making the DynamoDB resource and client objects readily available
+        Initializes a TerpTrackerDb instance by making the DynamoDB resource and client objects readily available
         """
         self.db_mode = db_mode
         self.dynamodb_resource = get_dynamodb_resource(db_mode=db_mode)
@@ -29,21 +29,14 @@ class TerpTrackerDb:
 
     def create_user_expenses_table(self):
         """
-        Creates the BSKY_POSTS table in DynamoDB using the configured DynamoDB resource.
+        Creates the USER_EXPENSES table in DynamoDB using the configured DynamoDB resource.
         """
         user_expenses_table = ExpenseTable(db_mode=self.db_mode)
         user_expenses_table.create_table()
-    #
-    # def create_users_table(self):
-    #     """
-    #     Creates the BSKY_USERS table in DynamoDB using the configured DynamoDB resource.
-    #     """
-    #     cursor_table = BskyUsersTable(db_mode=self.db_mode)
-    #     cursor_table.create_table()
 
     def __create_db_item(self, bsky_username: str, item: dict):
         """
-        Formats a Bluesky post into a TerpSearch DynamoDB-compatible item by attaching the required keys (bskyUsername
+        Formats a Bluesky post into a TerpTracker DynamoDB-compatible item by attaching the required keys (bskyUsername
         and bskyPostHash).
 
         The `bskyPostHash` is generated using a stable hashing function to uniquely identify each post by
@@ -56,7 +49,7 @@ class TerpTrackerDb:
             item (dict): The original post data from a user's bluesky feed.
 
         Returns:
-            dict: The item formatted for TerpSearch DynamoDB tables.
+            dict: The item formatted for TerpTracker DynamoDB tables.
         """
         post_hash = stable_hash(input=item['text'])
         item_header = {'bskyUsername': bsky_username, 'bskyPostHash': post_hash}
