@@ -9,5 +9,5 @@ class DynamoDbConstants:
     AWS_SECRET_ACCESS_KEY_ID = os.getenv('AWS_SECRET_ACCESS_KEY')
     DYNAMODB_URL = os.getenv('DYNAMODB_URL', 'http://localhost:8000')
     DYNAMODB_DEV_URL = 'http://localhost:8000'
-    DB_MODE = os.getenv('DB_MODE', 'DEV')
+    DB_MODE = os.getenv('DB_MODE', 'PROD')
     FERNET_KEY = 'FERNET_KEY'
