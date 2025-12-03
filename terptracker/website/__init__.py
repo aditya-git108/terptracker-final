@@ -33,8 +33,9 @@ def create_app():
     # with app.app_context():
     #     db.create_all()
     # create_database(app=app, db=db)
-    bsky_dynamodb = TerpTrackerDb(db_mode=DynamoDbConstants.DB_MODE)
-    print('Initializing TerpTracker Database...')
+    DB_MODE = DynamoDbConstants.DB_MODE
+    bsky_dynamodb = TerpTrackerDb(db_mode=DB_MODE)
+    print(f'Initializing TerpTracker Database w/ {DB_MODE=}')
 
     login_table_exists = table_exists(client=db_client, table_name=DynamoDbConstants.TERPTRACKER_LOGIN_TABLE_NAME)
     if login_table_exists is False:
